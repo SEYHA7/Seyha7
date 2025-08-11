@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>seyha7.com</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000814;
+      --neon:#041022;
+      --neon-2:#00c8ff;
+      --panel:#071426;
+      --glass: rgba(255,255,255,0.02);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;min-height:100vh;background: center/cover no-repeat url('https://i.postimg.cc/HntNxqng/Chainsaw-Man.jpg');
+      color:var(--neon-2);font-family:'Quicksand',sans-serif;display:flex;align-items:center;justify-content:center;padding:24px;
+    }
+    .card{
+      width:360px;max-width:95%;text-align:center;padding:28px;border-radius:14px;background:transparent;position:relative;
+    }
+    .avatar-wrap{width:140px;height:140px;margin:0 auto;border-radius:50%;padding:6px;background:linear-gradient(135deg, rgba(0,240,240,0.12), rgba(0,200,255,0.06));box-shadow:0 0 30px rgba(0,200,255,0.12), 0 6px 18px rgba(0,0,0,0.6);}
+    .avatar{width:100%;height:100%;border-radius:50%;overflow:hidden;display:block;border:3px solid rgba(0,240,240,0.18)}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{font-family:'Orbitron',sans-serif;font-weight:700;margin:18px 0 6px;font-size:22px;letter-spacing:2px;color:var(--neon-1);text-shadow:0 0 18px rgba(0,200,255,0.3)}
+    p.lead{margin:0 0 18px;font-size:12px;color:rgba(160,240,255,0.9);letter-spacing:1px}
+
+    .buttons{display:grid;gap:12px}
+    .btn{
+      background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(255,255,255,0.02));
+      padding:12px 14px;border-radius:12px;border:2px solid rgba(0,200,255,0.12);cursor:pointer;outline:none;font-family:'Orbitron',sans-serif;font-size:14px;color:var(--neon-1);
+      box-shadow:0 4px 26px rgba(0,200,255,0.04), inset 0 1px 0 rgba(255,255,255,0.02);
+      transition:transform .12s ease, background .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,200,255,0.12)}
+    .btn.primary{background:linear-gradient(90deg,var(--neon-2), var(--neon));color:#001;box-shadow:0 10px 30px rgba(0,200,255,0.18);border-color:rgba(255,255,255,0.06)}
+    .btn.outline{background:transparent;border:2px solid rgba(0,200,255,0.14);color:var(--neon-2)}
+
+    .footer-note{margin-top:22px;background:linear-gradient(90deg, rgba(0,200,255,0.06), rgba(0,0,0,0.04));padding:12px;border-radius:12px;font-size:13px}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);opacity:0;pointer-events:none;transition:opacity .18s ease}
+    .modal.show{opacity:1;pointer-events:auto}
+    .modal .panel{background:#041022;padding:20px;border-radius:12px;min-width:260px;color:#bffeff}
+    .codebox{background:#00131a;padding:12px;border-radius:8px;font-family:monospace;margin-top:8px}
+    .close{margin-top:12px;display:inline-block;padding:8px 12px;border-radius:8px;border:0;background:rgba(0,200,255,0.08);cursor:pointer}
+
+    @media (min-width:520px){.card{width:420px}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="avatar-wrap">
+      <div class="avatar"><img src="https://i.postimg.cc/sx3z1kd4/photo-2025-08-10-18-23-43.jpg" alt="avatar"></div>
+    </div>
+    <h1>Seyha.WEBSTORE.</h1>
+    <p class="lead">I Love My Family</p>
+
+    <div class="buttons">
+      <button class="btn primary" data-code="">Page 1</button>
+      <button class="btn primary" data-code="">Page 2</button>
+      <button class="btn primary" data-code="">Page 3</button>
+      <button class="btn primary" data-code="">Page 4</button>
+      <button class="btn primary" id="tg">💬 My Telegram</button>
+    </div>
+
+    <div class="footer-note">THANKS FOR VISITING🙏❤️</div>
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="panel">
+      <div id="modal-title" style="font-weight:700"></div>
+      <div class="codebox" id="codebox">—</div>
+      <button class="close" id="copy">Copy</button>
+      <button class="close" id="close">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const codebox = document.getElementById('codebox');
+    const title = document.getElementById('modal-title');
+    document.querySelectorAll('.btn[data-code]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const code = btn.dataset.code || 'NO CODE';
+        title.textContent = btn.textContent.trim();
+        codebox.textContent = code;
+        modal.classList.add('show');
+      })
+    })
+    document.getElementById('close').addEventListener('click', ()=>modal.classList.remove('show'));
+    document.getElementById('copy').addEventListener('click', async ()=>{
+      try{await navigator.clipboard.writeText(codebox.textContent);alert('Copied to clipboard')}catch(e){alert('Copy failed')}
+    })
+
+    // example external links (customize)
+    document.getElementById('tg').addEventListener('click', ()=>{
+      window.open('https://t.me/kinghaa777','_blank')
+    })
+  </script>
+</body>
+</html>
